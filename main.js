@@ -10,7 +10,8 @@ const controller = {
   },
   createMemo(data) {
     model.createData(data)
-    view.renderNewMemo(data)
+    memoListObj = model.ArrToObj(memoList)
+    view.renderDataPanel(memoListObj)
   },
   deleteMemo(index) {
     model.deleteData(index)
@@ -40,22 +41,6 @@ const view = {
     }
     dataPanel.innerHTML = rawHTML
   },
-  renderNewMemo(data) {
-    const index = memoList.indexOf(data)
-    dataPanel.innerHTML += `
-      <div class="col">
-        <div class="card border-warning" style="min-height: 150px;" data-index="${index}">
-          <div class="card-body">
-            <p class="card-text">${data}</p>
-          </div>
-          <div class="card-footer d-flex justify-content-end align-items-center p-3">
-            <i class="fa-solid fa-bolt fa-lg me-2" style="color: #510ecd;" data-index="${index}"></i>
-            <i class="fa-solid fa-xmark fa-xl" style="color: #ff0000;" data-index="${index}"></i>
-          </div>
-        </div>
-      </div>
-    `
-  }
 }
 
 const model = {
@@ -73,6 +58,7 @@ const model = {
   deleteData(index) {
     memoList.splice(index, 1)
     localStorage.setItem('memoList', JSON.stringify(memoList))
+    console.log(memoList)
   }
 }
 
