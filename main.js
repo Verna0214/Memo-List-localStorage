@@ -11,6 +11,11 @@ const controller = {
   createMemo(data) {
     model.createData(data)
     view.renderNewMemo(data)
+  },
+  deleteMemo(index) {
+    model.deleteData(index)
+    memoListObj = model.ArrToObj(memoList)
+    view.renderDataPanel(memoListObj)
   }
 }
 
@@ -25,10 +30,9 @@ const view = {
             <div class="card-body">
               <p class="card-text">${value}</p>
             </div>
-            <div class="card-footer d-flex justify-content-end align-items-center">
-              <i class="fa-solid fa-pen me-2"></i>
-              <i class="fa-solid fa-bolt fa-lg me-2" style="color: #510ecd;"></i>
-              <i class="fa-solid fa-xmark fa-xl" style="color: #ff0000;"></i>
+            <div class="card-footer d-flex justify-content-end align-items-center p-3">
+              <i class="fa-solid fa-bolt fa-lg me-2 highlight" style="color: #510ecd;" data-index="${key}"></i>
+              <i class="fa-solid fa-xmark fa-xl delete" style="color: #ff0000;" data-index="${key}"></i>
             </div>
           </div>
         </div>
@@ -44,10 +48,9 @@ const view = {
           <div class="card-body">
             <p class="card-text">${data}</p>
           </div>
-          <div class="card-footer d-flex justify-content-end align-items-center">
-            <i class="fa-solid fa-pen me-2"></i>
-            <i class="fa-solid fa-bolt fa-lg me-2" style="color: #510ecd;"></i>
-            <i class="fa-solid fa-xmark fa-xl" style="color: #ff0000;"></i>
+          <div class="card-footer d-flex justify-content-end align-items-center p-3">
+            <i class="fa-solid fa-bolt fa-lg me-2" style="color: #510ecd;" data-index="${index}"></i>
+            <i class="fa-solid fa-xmark fa-xl" style="color: #ff0000;" data-index="${index}"></i>
           </div>
         </div>
       </div>
@@ -66,6 +69,10 @@ const model = {
   createData(data) {
     memoList.push(data)
     localStorage.setItem('memoList', JSON.stringify(memoList))
+  },
+  deleteData(index) {
+    memoList.splice(index, 1)
+    localStorage.setItem('memoList', JSON.stringify(memoList))
   }
 }
 
@@ -77,10 +84,9 @@ textForm.addEventListener('submit', (event) => {
 })
 
 dataPanel.addEventListener('click', function clickDataPanel(event) {
-  if (event.target.tagName('I')) {
-    console.log(event.target)
+  if (event.target.classList.contains('delete')) {
+    controller.deleteMemo(Number(event.target.dataset.index))
   }
 })
 
 controller.generateMemo()
-console.log(dataPanel)
