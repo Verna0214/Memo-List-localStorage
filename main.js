@@ -36,8 +36,8 @@ const view = {
               <p class="card-text">${value}</p>
             </div>
             <div class="card-footer d-flex justify-content-end align-items-center p-3">
-              <i class="fa-solid fa-bolt fa-lg me-2 highlight" style="color: #510ecd;" data-index="${key}"></i>
-              <i class="fa-solid fa-xmark fa-xl delete" style="color: #ff0000;" data-index="${key}"></i>
+              <button type="button" class="btn btn-warning btn-sm highlight me-2" data-index="${key}">Highlight</button>
+              <button type="button" class="btn btn-danger btn-sm delete" data-index="${key}">Delete</button>
             </div>
           </div>
         </div>
@@ -64,7 +64,12 @@ const model = {
     localStorage.setItem('memoList', JSON.stringify(memoList))
   },
   highlightData(index) {
-    highlightList.push(memoList[index])
+    console.log(index)
+    if (highlightList.includes(memoList[index])) {
+      alert('The memo is already in highlight!')
+    } else {
+      highlightList.push(memoList[index])
+    }
     localStorage.setItem('highlightList', JSON.stringify(highlightList))
   }
 }
