@@ -56,6 +56,10 @@ const model = {
     return resultObj
   },
   createData(data) {
+    if (!data.length) {
+      alert('Please enter something!')
+      return
+    }
     memoList.push(data)
     localStorage.setItem('memoList', JSON.stringify(memoList))
   },
