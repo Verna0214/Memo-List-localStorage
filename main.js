@@ -1,6 +1,7 @@
 const textForm = document.querySelector('#text-form')
 const dataPanel = document.querySelector('#data-panel')
 const memoList = JSON.parse(localStorage.getItem('memoList')) || []
+const highlightList = []
 let memoListObj = {}
 
 const controller = {
@@ -17,6 +18,9 @@ const controller = {
     model.deleteData(index)
     memoListObj = model.ArrToObj(memoList)
     view.renderDataPanel(memoListObj)
+  },
+  addMemo(index) {
+    model.highlightData(index)
   }
 }
 
@@ -58,7 +62,10 @@ const model = {
   deleteData(index) {
     memoList.splice(index, 1)
     localStorage.setItem('memoList', JSON.stringify(memoList))
-    console.log(memoList)
+  },
+  highlightData(index) {
+    highlightList.push(memoList[index])
+    localStorage.setItem('highlightList', JSON.stringify(highlightList))
   }
 }
 
@@ -72,6 +79,8 @@ textForm.addEventListener('submit', (event) => {
 dataPanel.addEventListener('click', function clickDataPanel(event) {
   if (event.target.classList.contains('delete')) {
     controller.deleteMemo(Number(event.target.dataset.index))
+  } else if (event.target.classList.contains('highlight')) {
+    controller.addMemo(Number(event.target.dataset.index))
   }
 })
 
