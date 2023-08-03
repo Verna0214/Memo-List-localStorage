@@ -6,4 +6,5 @@ html,
 body {
   background-image: url('https://i.postimg.cc/Z531cLkR/IMG-0032.jpg');
   background-size: cover;
+  background-repeat: no-repeat;
 }

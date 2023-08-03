@@ -64,7 +64,6 @@ const model = {
     localStorage.setItem('memoList', JSON.stringify(memoList))
   },
   highlightData(index) {
-    console.log(index)
     if (highlightList.includes(memoList[index])) {
       alert('The memo is already in highlight!')
     } else {
