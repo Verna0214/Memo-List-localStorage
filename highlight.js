@@ -1,0 +1,1 @@
+const highlightList = JSON.parse(localStorage.getItem('highlightList')) || []

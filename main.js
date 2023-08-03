@@ -1,7 +1,7 @@
 const textForm = document.querySelector('#text-form')
 const dataPanel = document.querySelector('#data-panel')
 const memoList = JSON.parse(localStorage.getItem('memoList')) || []
-const highlightList = []
+const highlightList = JSON.parse(localStorage.getItem('highlightList')) || []
 let memoListObj = {}
 
 const controller = {
